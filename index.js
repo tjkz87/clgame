@@ -39,14 +39,27 @@ rl.on('line', (line) => {
         console.log('Wanna play?');
         break;
     }
-  } else if (state === 'p1turn') {
-    // save player's response
-    console.log('Player 2, select a cell. Enter column and row number:');
-    state = 'p2turn';
-  } else if (state === 'p2turn') {
-    // save player's response
-    console.log('Player 1, select a cell. Enter column and row number:');
-    state = 'p1turn';
+  } else {
+    const turn = response.split(' ');
+    if (state === 'p1turn') {
+      // save player's response
+      matrix[Number(turn[0]), Number(turn[1])] = 'X';
+      // TODO: re-draw board
+      // if wins set state to 'gameover'
+      console.log('Player 2, select a cell. Enter column and row number:');
+      state = 'p2turn';
+    } else if (state === 'p2turn') {
+      // save player's response
+      matrix[Number(turn[0]), Number(turn[1])] = 'O';
+      // TODO: re-draw board
+      // if wins set state to 'gameover'
+      console.log('Player 1, select a cell. Enter column and row number:');
+      state = 'p1turn';
+    } else if (state === 'gameover') {
+      // announce winner
+      // promp for a new game
+      // set state to 'newgame'
+    }
   }
   rl.prompt();
 }).on('close', () => {
