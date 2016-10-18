@@ -4,6 +4,9 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+let state = 'newgame';
+
+rl.prompt();
 
 // draw an empty board
 console.log(' | | ');
@@ -14,18 +17,29 @@ console.log('   | | ');
 
 // prompt for answer
 console.log('Wanna play?');
-rl.prompt();
 
 rl.on('line', (line) => {
-  switch(line.trim()) {
-    case 'yes':
-      console.log('awesome!');
-      break;
-    case 'no':
-      rl.close();
-    default:
-      console.log('Wanna play?');
-      break;
+  if (state === 'newgame') {
+    switch(line.trim()) {
+      case 'yes':
+        console.log('awesome!');
+        console.log('Player 1, select a cell. Enter column and row number:');
+        state = 'p1turn';
+        break;
+      case 'no':
+        rl.close();
+      default:
+        console.log('Wanna play?');
+        break;
+    }
+  } else if (state === 'p1turn') {
+    // save player's response
+    console.log('Player 2, select a cell. Enter column and row number:');
+    state = 'p2turn';
+  } else if (state === 'p2turn') {
+    // save player's response
+    console.log('Player 1, select a cell. Enter column and row number:');
+    state = 'p1turn';
   }
   rl.prompt();
 }).on('close', () => {
