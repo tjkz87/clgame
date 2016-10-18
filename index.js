@@ -6,6 +6,12 @@ const rl = readline.createInterface({
 
 let state = 'newgame';
 
+let matrix = [
+  [null, null, null],
+  [null, null, null],
+  [null, null, null]
+];
+
 rl.prompt();
 
 // draw an empty board
@@ -19,8 +25,9 @@ console.log('   | | ');
 console.log('Wanna play?');
 
 rl.on('line', (line) => {
+  const response = line.trim();
   if (state === 'newgame') {
-    switch(line.trim()) {
+    switch(response) {
       case 'yes':
         console.log('awesome!');
         console.log('Player 1, select a cell. Enter column and row number:');
